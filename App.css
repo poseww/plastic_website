@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +11,9 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.hide-in-cart {
+  display: none;
+}
 
 .navbar {
   position: absolute;
@@ -23,12 +27,12 @@ body {
 
 .navbar__brand {
   width: 100px;
-  height: 100%;
+  height: auto;
 }
 
 .brand__logo {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .signin__button {
@@ -44,73 +48,119 @@ body {
   gap: 10px;
 }
 
+
 .cart {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 30px;
-  border: 1px solid #ddd;
+  width: 100%; 
   border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  display: flex;
+  align-items: center; /* Center items */
 }
+
+
+.cart-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  }
+
 
 .cart h2 {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 30px;
   color: #333;
+  font-weight: bold;
+  
+}
+
+.cart p {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  margin-left: 39rem;
 }
 
 .cart ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100%; /* Ensure ul takes full width */
+}
+
+.cart-items-container {
+  margin-top: 100px;
 }
 
 .cart li {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  font-size: 18px;
+  align-items: center;
+  padding: 15px;
+  font-size: 16px;
   color: #555;
 }
 
-.cart p {
-  text-align: right;
-  font-size: 18px;
-  color: #555;
-  margin-top: 10px;
-  margin-bottom: 20px;
+.cart li img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
 }
 
-.cart button {
+
+.cart li .item-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+
+.cart li .item-price,
+.cart li .item-quantity {
+  font-size: 16px;
+  color: #555;
+}
+
+.cart .cart-total {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.cart .cart-total span {
+  font-weight: bold;
+}
+
+
+.cart button.checkout-button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 18px;
-  color: white;
-  background-color: #007bff;
+  color: #fff;
+  background-color: gray; 
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
 }
 
-.cart button:hover {
-  background-color: #0056b3;
+.cart button.checkout-button:hover {
+  background-color: goldenrod; 
 }
 
-.image-container {
-  text-align: center; 
-  margin: 5px 2px; 
-}
-
-.image-container img {
-  width: 218vh; 
-  height: 100vh; 
-  border-radius: 10px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-}
 
 .product-card {
   border: 1px solid #ccc;
@@ -122,12 +172,12 @@ body {
   margin: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensures space is distributed evenly */
+  justify-content: space-between; 
 }
 
 .product-card img {
   width: 100%;
-  height: 200px; /* Fixed height for uniformity */
+  height: 200px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 16px;
@@ -137,7 +187,7 @@ body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* This ensures that the button stays at the bottom */
+  justify-content: space-between; /* memastikan buttunnyo tak gerak dari bawah */
 }
 
 .product-title {
@@ -159,7 +209,7 @@ body {
 }
 
 .add-to-cart-button {
-  margin-top: auto; /* Pushes the button to the bottom */
+  margin-top: auto;
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
@@ -177,22 +227,23 @@ body {
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; 
-  gap: 5px; 
-
+  justify-content: center;
+  gap: 10px; 
 }
+
 
 .notification {
   position: fixed;
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4caf50; 
+  background-color: #4caf50;
   color: white;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 
 .cart-item {
   display: flex;
@@ -226,6 +277,7 @@ body {
   border: 1px solid #ddd;
   background-color: #f0f0f0;
   cursor: pointer;
+  color: gray;
 }
 
 .quantity-control input {
@@ -243,3 +295,86 @@ button[aria-label="Remove item"] {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+
+.checkout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Hapus margin default */
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.checkout-form {
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+}
+
+.checkout-title {
+  text-align: center;
+  margin-bottom: 20px; 
+  font-size: 24px; 
+  font-weight: bold;
+}
+
+.checkout-title h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: 15rem;
+}
+
+.checkout-form label {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 300px;
+}
+
+.checkout-form input,
+.checkout-form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #000;
+
+  margin-right: 39rem;
+}
+
+.checkout-form button {
+  display: flex;
+  justify-content: center;
+  width: 75%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 auto; 
+  text-align: center; /* Opsional, karena sudah menjadi default */
+  margin-left: 300px;
+}
+
+.checkout-form button:hover {
+  background-color: #0056b3;
+}
+
+
+.thank-you {
+  margin-top: -10px; /* Kurangi margin top untuk mendekatkan pesan dengan tombol */
+  margin-left: 250px;
+  font-size: 18px;
+  color: #4CAF50; /* Hijau untuk pesan sukses */
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+}
+
+
+
