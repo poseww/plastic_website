@@ -60,12 +60,57 @@
 
 // export default CartItem;
 
-import React from 'react';
+// import React from 'react';
+
+// const CartItem = ({ item, updateQuantity, removeFromCart }) => {
+//   const handleQuantityChange = (e) => {
+//     const newQuantity = parseInt(e.target.value, 10);
+//     updateQuantity(item.id, newQuantity);
+//   };
+
+//   return (
+//     <li className="cart-item">
+//       <img src={item.image} alt={item.name} />
+//       <div className="cart-item-details">
+//         <h3>{item.name}</h3>
+//         <p>Rp {new Intl.NumberFormat('id-ID').format(item.price)} x {item.quantity}</p>
+
+//         <div className="quantity-control">
+//           <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+//           <input
+//             type="number"
+//             value={item.quantity}
+//             onChange={handleQuantityChange}
+//             min="1"
+//           />
+//           <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+//         </div>
+//         <button onClick={() => removeFromCart(item.id)}>Remove</button>
+//       </div>
+//     </li>
+//   );
+// };
+
+// export default CartItem;
+
+
+import React, { useState } from 'react';
 
 const CartItem = ({ item, updateQuantity, removeFromCart }) => {
+  // Initialize state with item's quantity
+  const [quantity, setQuantity] = useState(item.quantity || 1);
+
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value, 10);
-    updateQuantity(item.id, newQuantity);
+    
+    if (isNaN(newQuantity) || newQuantity < 1) {
+      // Ensure quantity is at least 1
+      setQuantity(1);
+      updateQuantity(item.id, 1);
+    } else {
+      setQuantity(newQuantity);
+      updateQuantity(item.id, newQuantity);
+    }
   };
 
   return (
@@ -73,22 +118,49 @@ const CartItem = ({ item, updateQuantity, removeFromCart }) => {
       <img src={item.image} alt={item.name} />
       <div className="cart-item-details">
         <h3>{item.name}</h3>
-        <p>Rp {item.price.toLocaleString()} x {item.quantity}</p>
+        <p>
+          {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(item.price)} x {quantity}
+        </p>
+
         <div className="quantity-control">
-          <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+          <button 
+            onClick={() => {
+              const newQuantity = Math.max(1, quantity - 1);
+              setQuantity(newQuantity);
+              updateQuantity(item.id, newQuantity);
+            }}
+            aria-label="Decrease quantity"
+            disabled={quantity <= 1}
+          >
+            -
+          </button>
           <input
             type="number"
-            value={item.quantity}
+            value={quantity}
             onChange={handleQuantityChange}
             min="1"
+            aria-label="Quantity"
           />
-          <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+          <button 
+            onClick={() => {
+              const newQuantity = quantity + 1;
+              setQuantity(newQuantity);
+              updateQuantity(item.id, newQuantity);
+            }}
+            aria-label="Increase quantity"
+          >
+            +
+          </button>
         </div>
-        <button onClick={() => removeFromCart(item.id)}>Remove</button>
+        <button 
+          onClick={() => removeFromCart(item.id)} 
+          aria-label="Remove item"
+        >
+          Remove
+        </button>
       </div>
     </li>
   );
 };
 
 export default CartItem;
-
